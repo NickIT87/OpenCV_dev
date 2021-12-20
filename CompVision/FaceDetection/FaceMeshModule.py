@@ -14,14 +14,15 @@ def fpsframe(img):
 
 
 class FaceMeshDetector():
-    def __init__(self, staticMode=False, maxFaces=2, minDetectionCon=0.5, minTrackCon=0.5):
+    def __init__(self, staticMode=False, maxFaces=2, refine_lms=True, minDetectionCon=0.5, minTrackCon=0.5):
         self.staticMode = staticMode
         self.maxFaces = maxFaces
+        self.refine_lms = refine_lms
         self.minDetectionCon = minDetectionCon
         self.minTrackCon = minTrackCon
         self.mpDraw = mp.solutions.drawing_utils
         self.mpFaceMesh = mp.solutions.face_mesh
-        self.faceMesh = self.mpFaceMesh.FaceMesh(self.staticMode, self.maxFaces,
+        self.faceMesh = self.mpFaceMesh.FaceMesh(self.staticMode, self.maxFaces, self.refine_lms, 
                                                  self.minDetectionCon, self.minTrackCon)
         self.drawSpec = self.mpDraw.DrawingSpec(thickness=1, circle_radius=1)
 
@@ -32,7 +33,7 @@ class FaceMeshDetector():
         if self.results.multi_face_landmarks:
             for faceLms in self.results.multi_face_landmarks:
                 if draw:
-                    self.mpDraw.draw_landmarks(img, faceLms, self.mpFaceMesh.FACE_CONNECTIONS,
+                    self.mpDraw.draw_landmarks(img, faceLms, self.mpFaceMesh.FACEMESH_TESSELATION,
                                                self.drawSpec, self.drawSpec)
                 face = []
                 for id, lm in enumerate(faceLms.landmark):

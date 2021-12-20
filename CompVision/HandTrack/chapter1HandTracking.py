@@ -10,7 +10,7 @@ class HandDetector():
         self.detectionCon = detectionCon
         self.trackCon = trackCon
         self.mpHands = mp.solutions.hands               # Hands module
-        self.hands = self.mpHands.Hands(self.mode, self.maxHands,
+        self.hands = self.mpHands.Hands(self.mode, self.maxHands, 1,
                                         self.detectionCon, self.trackCon)    # hand landmarks obj
         self.mpDraw = mp.solutions.drawing_utils
 

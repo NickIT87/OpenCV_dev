@@ -25,7 +25,7 @@ class PoseDetector():
         self.trackCon = trackCon
         self.mpDraw = mp.solutions.drawing_utils
         self.mpPose = mp.solutions.pose
-        self.pose = self.mpPose.Pose(self.mode, self.upBody, self.smooth,
+        self.pose = self.mpPose.Pose(self.mode, self.upBody, self.smooth, True,
                                      self.detectionCon, self.trackCon)
 
     def findPose(self, img, draw=True):
